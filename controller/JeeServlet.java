@@ -34,8 +34,8 @@ public class JeeServlet extends HttpServlet {
 	 * Réponse aux requêtes de type GET, inutile dans ce TP.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{	
-		request.getServletContext().getRequestDispatcher("/test.jsp").include(request, response);
+	{
+		request.getServletContext().getRequestDispatcher("/upload.jsp").include(request, response);
 	}
 
 	/**

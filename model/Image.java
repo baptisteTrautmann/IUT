@@ -18,7 +18,7 @@ public class Image implements Serializable{
 	@ManyToOne
 	private Categorie categorie;
 	
-	private String lien;
+	private String source;
 	
 	public Image(){
 		
@@ -48,12 +48,12 @@ public class Image implements Serializable{
 		this.categorie = categorie;
 	}
 	
-	public String getLien() {
-		return this.lien;
+	public String getSource() {
+		return this.source;
 	}
 
-	public void setLien(String lien) {
-		this.lien = lien;
+	public void setSource(String source) {
+		this.source = source;
 	}
 	
 }

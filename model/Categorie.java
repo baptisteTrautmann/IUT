@@ -15,7 +15,7 @@ public class Categorie implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private byte id;
+	private int id;
 
 	private String nom;
 
@@ -26,11 +26,11 @@ public class Categorie implements Serializable {
 	public Categorie() {
 	}
 
-	public byte getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(byte id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -33,20 +33,15 @@ public class JeeServlet extends HttpServlet {
 	/**
 	 * Réponse aux requêtes de type GET, inutile dans ce TP.
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		//response.setContentType("text/html");
-		//out.println("<h2>TEST!</h2>");
-		
-		this.getServletContext().getRequestDispatcher("/test.jsp").include(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{	
+		request.getServletContext().getRequestDispatcher("/test.jsp").include(request, response);
 	}
 
 	/**
 	 * Réponse aux requêtes de type POST, à modifier, compléter, etc.
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 

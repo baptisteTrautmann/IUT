@@ -19,7 +19,7 @@ import ejb.FacadeImage;
 /**
  * Servlet implementation class JeeServlet
  */
-@WebServlet("/JeeServlet")
+@WebServlet({"/JeeServlet",})
 public class JeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,11 +31,18 @@ public class JeeServlet extends HttpServlet {
 	private FacadeImage facadeImage;
 
 	/**
-	 * Réponse aux requêtes de type GET, inutile dans ce TP.
+	 * Réponse aux requêtes de type GET
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-		request.getServletContext().getRequestDispatcher("/test.jsp").include(request, response);
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+
+		String action = request.getParameter("action");
+
+		if (action.equals("tout")) {
+			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -47,11 +54,8 @@ public class JeeServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		if (action.equals("lstcat")) {
-			out.println(getHTMLCategories());
-		}
-		if (action.equals("searchid")) {
-			out.println(getHTMLProduit(request.getParameter("idproduit")));
+		if (action.equals("tout")) {
+			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
 	}
 
@@ -78,7 +82,7 @@ public class JeeServlet extends HttpServlet {
 	 * trouvé.
 	 * @return une chaîne au format HTML
 	 */
-	private String getHTMLProduit(String id) {
+	private String getHTMLImages(String id) {
 		String html = "";
 		Image i = null;
 		try {

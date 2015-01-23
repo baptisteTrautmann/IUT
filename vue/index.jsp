@@ -9,7 +9,10 @@
 <body>
 	<a href="JeeServlet">UPLOAD UNE IMAGE ZOMG!</a><br/>
 	
-	<a name="boutonTout" href="#">Tout afficher</a>
+	<form method="POST" action="JeeServlet">
+		<input type="hidden" name="action" value="tout"/>
+		<input type="submit" name="boutonTout" value="Tout afficher"/>
+	</form>
 	
 	<form method=POST>
 		<input type=text name="rechercheCategorie" placeholder="Saisir une catégorie d'image ici"></input>

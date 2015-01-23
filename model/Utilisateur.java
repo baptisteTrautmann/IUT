@@ -6,24 +6,26 @@ import java.util.List;
 
 
 /**
- * The persistent class for the Categorie database table.
+ * The persistent class for the Utilisateur database table.
  * 
  */
 @Entity
-@NamedQuery(name="Categorie.findAll", query="SELECT c FROM Categorie c")
-public class Categorie implements Serializable {
+@NamedQuery(name="Utilisateur.findAll", query="SELECT u FROM Utilisateur u")
+public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int id;
 
-	private String nom;
+	private String login;
+
+	private String password;
 
 	//bi-directional many-to-one association to Image
-	@OneToMany(mappedBy="categorie")
+	@OneToMany(mappedBy="utilisateur")
 	private List<Image> images;
 
-	public Categorie() {
+	public Utilisateur() {
 	}
 
 	public int getId() {
@@ -34,12 +36,20 @@ public class Categorie implements Serializable {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return this.nom;
+	public String getLogin() {
+		return this.login;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public List<Image> getImages() {
@@ -52,14 +62,14 @@ public class Categorie implements Serializable {
 
 	public Image addImage(Image image) {
 		getImages().add(image);
-		image.setCategorie(this);
+		image.setUtilisateur(this);
 
 		return image;
 	}
 
 	public Image removeImage(Image image) {
 		getImages().remove(image);
-		image.setCategorie(null);
+		image.setUtilisateur(null);
 
 		return image;
 	}

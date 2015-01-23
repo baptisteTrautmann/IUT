@@ -3,13 +3,13 @@ package ejb;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
-import model.Image;
+import model.Utilisateur;
 
 /**
- * EJB session pour la classe Image
+ * EJB session pour la classe Utilisateur
  */
 @Stateless
-public class FacadeImage extends FacadeAbstraite {
+public class FacadeUtilisateur extends FacadeAbstraite {
 	@PersistenceContext(unitName = "JEE")
 	private EntityManager em;
 
@@ -17,7 +17,7 @@ public class FacadeImage extends FacadeAbstraite {
 		return em;
 	}
 
-	public FacadeImage() {
-		super(Image.class);
+	public FacadeUtilisateur() {
+		super(Utilisateur.class);
 	}
 }

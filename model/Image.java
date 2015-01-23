@@ -2,28 +2,37 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
+/**
+ * The persistent class for the Image database table.
+ * 
+ */
 @Entity
-@NamedQuery(name="image.findAll", query="SELECT i FROM Image i")
-public class Image implements Serializable{
+@NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
+public class Image implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private int id;
-	
+
 	private String nom;
-	
-	@ManyToOne
-	private Categorie categorie;
-	
+
 	private String source;
-	
-	public Image(){
-		
+
+	//bi-directional many-to-one association to Categorie
+	@ManyToOne
+	@JoinColumn(name="categorieId")
+	private Categorie categorie;
+
+	//bi-directional many-to-one association to Utilisateur
+	@ManyToOne
+	@JoinColumn(name="proprietaire")
+	private Utilisateur utilisateur;
+
+	public Image() {
 	}
-	
+
 	public int getId() {
 		return this.id;
 	}
@@ -31,7 +40,7 @@ public class Image implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getNom() {
 		return this.nom;
 	}
@@ -39,15 +48,7 @@ public class Image implements Serializable{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
-	public Categorie getCategorie() {
-		return this.categorie;
-	}
 
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
-	
 	public String getSource() {
 		return this.source;
 	}
@@ -55,5 +56,21 @@ public class Image implements Serializable{
 	public void setSource(String source) {
 		this.source = source;
 	}
-	
+
+	public Categorie getCategorie() {
+		return this.categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return this.utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
 }

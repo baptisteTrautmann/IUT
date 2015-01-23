@@ -4,5 +4,6 @@
 		<jta-data-source>jdbc/jee</jta-data-source>
 		<class>model.Categorie</class>
 		<class>model.Image</class>
+		<class>model.Utilisateur</class>
 	</persistence-unit>
 </persistence>

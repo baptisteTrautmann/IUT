@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>FreeArt</title>
 </head>
 <body>
-
+	<form method=POST>
+		
+		<button name="envoyerImage">Envoyer</button>
+	</form><br/>
 </body>
 </html>

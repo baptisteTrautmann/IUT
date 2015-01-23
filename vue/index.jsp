@@ -4,9 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>FreeArt</title>
 </head>
 <body>
-	<a href="JeeServlet">EFHSDJCSDOPCJ</a>
+	<a href="JeeServlet">UPLOAD UNE IMAGE ZOMG!</a><br/>
+	
+	<a name="boutonTout" href="#">Tout afficher</a>
+	
+	<form method=POST>
+		<input type=text name="rechercheCategorie" placeholder="Saisir une catégorie d'image ici"></input>
+		<button name="boutonRecherche">Recherche catégorie</button>
+	</form><br/>
+	<!--  <form method=POST>
+		<input type=text name="rechercheNom" placeholder="Saisir un nom d'image ici"></input>
+		<button name="boutonRecherche">Recherche image</button>
+	</form><br/>  -->
 </body>
 </html>

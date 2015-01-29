@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+import="java.util.List"
+import="model.*"
+import="ejb.*"    
+    
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -13,6 +18,22 @@
        <form action="UploadServlet" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Envoi de fichier</legend>
+                <select>
+                <% 
+                List<Categorie> listeCategorie = (List<Categorie>)request.getAttribute("ListeCategorie");
+                for(Categorie categorie : listeCategorie)
+                {
+                
+                	out.print("<option value=\""+Integer.toString(categorie.getId())+"\">"+categorie.getNom()+"</option>");
+                
+                }
+                %>
+                
+                 
+                
+                </select>
+                <br/>
+                
                 <label for="description">Description du fichier</label>
                 <input type="text" id="description" name="description" value="" />
                 <span class="succes"><c:out value="${description}" /></span>

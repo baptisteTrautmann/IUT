@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -42,14 +43,23 @@ public class UploadServlet extends HttpServlet {
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		/* Affichage de la page d'envoi de fichiers */
+		
+		
+		
+		
+		
+		
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		
+		
 	}
 
 	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 	    /*
 	     * Lecture du paramètre 'chemin' passé à la servlet via la déclaration dans le web.xml
 	     */
-
+		
+		
 	    String chemin = this.getServletConfig().getInitParameter( CHEMIN );
 	    System.out.println("chemin1 : "+ chemin);
 

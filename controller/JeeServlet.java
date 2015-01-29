@@ -41,7 +41,9 @@ public class JeeServlet extends HttpServlet {
 
 		if(action.equals("upload"))
 		{
+			List<Categorie> listeCategorie = facadeCategorie.findAll();
 			
+			request.setAttribute("ListeCategorie", listeCategorie);
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
 		}
 		else if (action.equals("tout")) 
@@ -62,7 +64,9 @@ public class JeeServlet extends HttpServlet {
 
 		if(action.equals("upload"))
 		{
+			List<Categorie> listeCategorie = facadeCategorie.findAll();
 			
+			request.setAttribute("ListeCategorie", listeCategorie);
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
 		}
 		else if (action.equals("tout")) 

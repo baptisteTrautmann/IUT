@@ -16,7 +16,7 @@
 	<%
 		List<Image> imgList = (List<Image>)request.getAttribute("toutesImages");
 
-		if (imgList != null) 
+		if (!imgList.isEmpty()) 
 		{
 			out.print("<ul>");
 			for(Image img : imgList)

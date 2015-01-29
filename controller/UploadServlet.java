@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebInitParam;
@@ -15,10 +16,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import ejb.FacadeCategorie;
+import ejb.FacadeImage;
+import ejb.FacadeUtilisateur;
+import model.Categorie;
+import model.Image;
+import model.Utilisateur;
+
 @WebServlet(name="UploadServlet",urlPatterns ="/UploadServlet",initParams = {@WebInitParam(name= "chemin", value="C:/images/")})
 @MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class UploadServlet extends HttpServlet {
 	
+	@EJB
+	private FacadeImage facadeImage;
+	@EJB
+	private FacadeCategorie facadeCategorie;
+	@EJB
+	private FacadeUtilisateur facadeUtilisateur;
 	
 	public static final String VUE = "/upload.jsp";
 	public static final String CHAMP_DESCRIPTION = "description";
@@ -125,7 +139,16 @@ public class UploadServlet extends HttpServlet {
 	        entree = new BufferedInputStream( part.getInputStream(), TAILLE_TAMPON );
 	        sortie = new BufferedOutputStream( new FileOutputStream( new File( chemin + nomFichier)),TAILLE_TAMPON );
 	        
-	               
+	        Image image = new Image();
+	        image.setNom("teste");
+	        image.setSource("C:/Images/DCC_TP6.jpg");
+	        
+	        Utilisateur utilisateur = (Utilisateur)facadeUtilisateur.find(1);
+	        image.setUtilisateur(utilisateur);
+	        Categorie categorie = (Categorie) facadeCategorie.find(1);
+	        image.setCategorie(categorie);
+	        facadeImage.create(image);
+	        
 	        //Lit le fichier reçu et écrit son contenu dans un fichier sur le disque.
 	        
 	        byte[] tampon = new byte[TAILLE_TAMPON];

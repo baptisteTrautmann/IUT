@@ -41,11 +41,12 @@ public class JeeServlet extends HttpServlet {
 
 		if(action.equals("upload"))
 		{
-			request.setAttribute("toutesImages", facadeImage.findAll());
+			
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
 		}
 		else if (action.equals("tout")) 
 		{
+			request.setAttribute("toutesImages", facadeImage.findAll());
 			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
 	}
@@ -61,11 +62,12 @@ public class JeeServlet extends HttpServlet {
 
 		if(action.equals("upload"))
 		{
-			request.setAttribute("toutesImages", facadeImage.findAll());
+			
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
 		}
 		else if (action.equals("tout")) 
 		{
+			request.setAttribute("toutesImages", facadeImage.findAll());
 			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
 	}

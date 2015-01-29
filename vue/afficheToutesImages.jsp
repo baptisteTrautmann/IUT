@@ -21,7 +21,7 @@
 			out.print("<ul>");
 			for(Image img : imgList)
 			{
-				out.print("<li><img src=\"" + img.getSource() + "\" alt=\"" + img.getNom() + "\"</li>");
+				out.print("<li><img src=\"" + img.getSource() + "\" alt=\"" + img.getNom() + "\"></li>");
 			}
 			out.print("</ul>");
 		}

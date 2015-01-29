@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <title>FreeArt</title>
 </head>
 <body>
 	<form method="POST" action="JeeServlet">
-		<input type="hidden" name="upload" value="upload"/>
+		<input type="hidden" name="action" value="upload"/>
 		<input type="submit" name="boutonUpload" value="Déposer une image"/>
 	</form>
 	

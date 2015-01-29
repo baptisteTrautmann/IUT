@@ -63,6 +63,7 @@ public class JeeServlet extends HttpServlet {
 		}
 		else if(action.equals("upload"))
 		{
+			request.setAttribute("toutesImages", facadeImage.findAll());
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
 		}
 	}

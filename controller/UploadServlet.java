@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-@WebServlet(name="UploadServlet",urlPatterns ="/UploadServlet",initParams = {@WebInitParam(name= "chemin :", value="/images/")})
+@WebServlet(name="UploadServlet",urlPatterns ="/UploadServlet",initParams = {@WebInitParam(name= "chemin", value="C:/images/")})
 @MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class UploadServlet extends HttpServlet {
 	
@@ -37,6 +37,7 @@ public class UploadServlet extends HttpServlet {
 	     */
 
 	    String chemin = this.getServletConfig().getInitParameter( CHEMIN );
+	    System.out.println("chemin1 : "+ chemin);
 
 	    /* Récupération du contenu du champ de description */
 	    String description = request.getParameter( CHAMP_DESCRIPTION );
@@ -73,7 +74,7 @@ public class UploadServlet extends HttpServlet {
 	         */
 
 	         nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
-
+	         nomFichier = nomFichier.replace("\"", "");
 	        /* Écriture du fichier sur le disque */
 	        ecrireFichier( part, nomFichier, chemin );
 
@@ -123,9 +124,10 @@ public class UploadServlet extends HttpServlet {
 	    	
 	        entree = new BufferedInputStream( part.getInputStream(), TAILLE_TAMPON );
 	        sortie = new BufferedOutputStream( new FileOutputStream( new File( chemin + nomFichier)),TAILLE_TAMPON );
-	        //TODO : sortie null -> new File null pourquoi ???
 	        
+	               
 	        //Lit le fichier reçu et écrit son contenu dans un fichier sur le disque.
+	        
 	        byte[] tampon = new byte[TAILLE_TAMPON];
 	        int longueur;
 	        

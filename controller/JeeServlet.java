@@ -34,7 +34,6 @@ public class JeeServlet extends HttpServlet {
 	 * Réponse aux requêtes de type GET
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-<<<<<<< HEAD
 	{	
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -44,10 +43,10 @@ public class JeeServlet extends HttpServlet {
 		if (action.equals("tout")) {
 			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
-=======
-	{
-		request.getServletContext().getRequestDispatcher("/upload.jsp").include(request, response);
->>>>>>> origin/master
+		else if(action.equals("upload"))
+		{
+			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -61,6 +60,10 @@ public class JeeServlet extends HttpServlet {
 
 		if (action.equals("tout")) {
 			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
+		}
+		else if(action.equals("upload"))
+		{
+			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
 		}
 	}
 

@@ -7,7 +7,10 @@
 <title>FreeArt</title>
 </head>
 <body>
-	<a href="JeeServlet">UPLOAD UNE IMAGE ZOMG!</a><br/>
+	<form method="POST" action="JeeServlet">
+		<input type="hidden" name="upload" value="upload"/>
+		<input type="submit" name="boutonUpload" value="Déposer une image"/>
+	</form>
 	
 	<form method="POST" action="JeeServlet">
 		<input type="hidden" name="action" value="tout"/>

@@ -19,7 +19,7 @@ import ejb.FacadeImage;
 /**
  * Servlet implementation class JeeServlet
  */
-@WebServlet({"/JeeServlet",})
+@WebServlet({"/JeeServlet", "/accueil"})
 public class JeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,36 +35,38 @@ public class JeeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 
 		String action = request.getParameter("action");
 
-		if (action.equals("tout")) {
-			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
-		}
-		else if(action.equals("upload"))
+		if(action.equals("upload"))
 		{
+			request.setAttribute("toutesImages", facadeImage.findAll());
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
+		}
+		else if (action.equals("tout")) 
+		{
+			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
 	}
 
 	/**
 	 * Réponse aux requêtes de type POST, à modifier, compléter, etc.
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		response.setContentType("text/html");
 
 		String action = request.getParameter("action");
 
-		if (action.equals("tout")) {
-			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
-		}
-		else if(action.equals("upload"))
+		if(action.equals("upload"))
 		{
 			request.setAttribute("toutesImages", facadeImage.findAll());
 			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
+		}
+		else if (action.equals("tout")) 
+		{
+			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
 	}
 

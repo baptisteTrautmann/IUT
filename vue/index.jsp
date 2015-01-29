@@ -8,23 +8,25 @@
 <title>FreeArt</title>
 </head>
 <body>
-	<form method="POST" action="JeeServlet">
+	<h2>Page d'accueil</h2>
+	<p>Pour déposer une image:</p>
+	<form method="POST" action="accueil">
 		<input type="hidden" name="action" value="upload"/>
 		<input type="submit" name="boutonUpload" value="Déposer une image"/>
-	</form>
+	</form><br/>
 	
-	<form method="POST" action="JeeServlet">
+	<p>Pour afficher toutes les images:</p>
+	<form method="POST" action="accueil">
 		<input type="hidden" name="action" value="tout"/>
 		<input type="submit" name="boutonTout" value="Tout afficher"/>
-	</form>
-	
-	<form method=POST>
-		<input type=text name="rechercheCategorie" placeholder="Saisir une catégorie d'image ici"></input>
-		<button name="boutonRecherche">Recherche catégorie</button>
 	</form><br/>
-	<!--  <form method=POST>
-		<input type=text name="rechercheNom" placeholder="Saisir un nom d'image ici"></input>
-		<button name="boutonRecherche">Recherche image</button>
-	</form><br/>  -->
+	
+	<p>Pour rechercher des images par catégorie ou par nom:</p>
+	<form method="POST" action="search">
+		<input type="text" name="recherche" placeholder="Recherche..."/>
+		<input type="radio" name="type" value="image" checked>Image
+		<input type="radio" name="type" value="categorie">Catégorie
+		<input type="submit" name="boutonParCategorie" value="Recherche"/>
+	</form>
 </body>
 </html>

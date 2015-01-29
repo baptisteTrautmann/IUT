@@ -12,11 +12,11 @@
 <title>FreeArt</title>
 </head>
 <body>
-	<h3>Liste de toutes les images:</h3>
+	<h3>Résultat de la recherche:</h3>
 	<%
-		List<Image> imgList = (List<Image>)request.getAttribute("toutesImages");
+		List<Image> imgList = (List<Image>)request.getAttribute("resRecherche");
 
-		if (imgList != null) 
+		if (!imgList.isEmpty())
 		{
 			out.print("<ul>");
 			for(Image img : imgList)
@@ -27,7 +27,7 @@
 		}
 		else 
 		{
-			out.print("<p>Il n'existe aucune image.</p>");
+			out.print("<p>Aucune image n'a été trouvée selon vos critères de recherche.</p>");
 		}
 	%>
 </body>

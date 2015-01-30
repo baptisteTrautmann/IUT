@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import="model.*"
+	import="ejb.*"
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,6 +11,44 @@
 <title>FreeArt</title>
 </head>
 <body>
+	<header>
+		<%
+			String erreur = (String)request.getAttribute("erreur");
+			if(erreur != null && erreur != "")
+			{
+				out.print(erreur);
+			}
+			request.setAttribute("erreur", null);
+			
+			Utilisateur u = (Utilisateur)request.getAttribute("utilisateur");
+			if(u != null)
+			{
+				out.print("Vous etes connecté sous " + u.getLogin() + "!");	
+				%>
+				<form method="POST" action="connexion">
+					<input type="hidden" name="action" value="deconnexion"/>
+					<input type="submit" name="boutonDeco" value="Se déconnecter"/>
+				</form><br/>
+				<%
+			}
+			else
+			{
+		%>
+				<form method="POST" action="connexion">
+					<input type="hidden" name="action" value="connexion"/>
+					<input type="text" name="login" placeholder="Login"/>
+					<input type="password" name="password" placeholder="Mot de passe"/>
+					<input type="submit" name="boutonConnec" value="Se connecter"/>
+				</form><br/>
+				<form method="POST" action="creationCompte">
+					<input type="hidden" name="action" value="creation"/>
+					<input type="submit" name="boutonCreation" value="Créer un compte"/>
+				</form><br/>
+		<%
+			}
+		%>
+	</header>
+	
 	<h2>Page d'accueil</h2>
 	<p>Pour déposer une image:</p>
 	<form method="POST" action="accueil">

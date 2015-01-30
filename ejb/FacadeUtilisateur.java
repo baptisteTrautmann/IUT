@@ -1,8 +1,12 @@
 package ejb;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
+import model.Image;
 import model.Utilisateur;
 
 /**
@@ -19,5 +23,19 @@ public class FacadeUtilisateur extends FacadeAbstraite {
 
 	public FacadeUtilisateur() {
 		super(Utilisateur.class);
+	}
+	
+	public Utilisateur findByLogin(String login)
+	{
+		try
+		{
+			Query query = em.createQuery("SELECT OBJECT(u) FROM Utilisateur u WHERE u.login = :login");
+			query.setParameter("login", login);
+			return (Utilisateur)query.getSingleResult();
+		}
+		catch(NoResultException err)
+		{
+			return null;
+		}
 	}
 }

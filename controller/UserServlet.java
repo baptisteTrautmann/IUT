@@ -22,28 +22,28 @@ import ejb.FacadeUtilisateur;
 /**
  * Servlet implementation class JeeServlet
  */
-@WebServlet({"/ConnecServlet", "/connexion"})
-public class ConnecServlet extends HttpServlet {
+@WebServlet({"/UserServlet", "/creationCompte"})
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// ici vous utilisez évidemment votre outil de persistance
 	// ces deux attributs sont mes EJB à moi qui gère ma persistance JPA
 	@EJB
 	private FacadeUtilisateur facadeUtilisateur;
+	@EJB
+	private FacadeImage facadeImage;
+	
+	private HttpSession session;
 
 	/**
 	 * Réponse aux requêtes de type GET
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-		response.setContentType("text/html");
-
-		String action = request.getParameter("action");
-
-		if(action.equals("connexion"))
-		{
-
-		}
+		HttpSession session = request.getSession();
+		String erreur = (String) session.getAttribute("erreur");
+		request.setAttribute("erreur", erreur);
+		this.getServletContext().getRequestDispatcher("/creation.jsp").forward(request, response);
 	}
 
 	/**
@@ -51,32 +51,36 @@ public class ConnecServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		response.setContentType("text/html");
-
+		PrintWriter out = response.getWriter();
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
 
-		if(action.equals("connexion"))
+		if(action.equals("creation"))
 		{
-			PrintWriter out = response.getWriter();
+			String erreur = (String) session.getAttribute("erreur");
+			request.setAttribute("erreur", erreur);
+			this.getServletContext().getRequestDispatcher("/creation.jsp").forward(request, response);
+		}
+		else if(action.equals("creerCompte"))
+		{
+			String login = request.getParameter("loginCreer");
+			String pass = request.getParameter("passwordCreer");
 			
-			String login = request.getParameter("login");
-			String pass = request.getParameter("password");
-			Utilisateur u = facadeUtilisateur.findByLogin(login);
+			Utilisateur u = new Utilisateur();
+			u.setLogin(login);
+			u.setPassword(pass);
+			Utilisateur u2 = facadeUtilisateur.findByLogin(login);
 			
-			if(u != null && pass.equals(u.getPassword()))
+			if(u2 != null)
 			{
-				session.setAttribute("utilisateur", u);
+				session.setAttribute("erreur", "Utilisateur déjà existant.");
+				response.sendRedirect("./creationCompte");
 			}
 			else
 			{
-				session.setAttribute("erreur", "Login ou mot de passe erroné.");
+				facadeUtilisateur.create(u);
+				response.sendRedirect("./accueil");
 			}
 		}
-		else if(action.equals("deconnexion"))
-		{
-			session.removeAttribute("utilisateur");
-		}
-		response.sendRedirect("./accueil");
 	}
 }

@@ -62,12 +62,12 @@ public class PanierServlet extends HttpServlet {
 		String chemin = this.getServletConfig().getInitParameter( CHEMIN );
 		
 		
-				
+		/*		
 		File repertoire = new File(chemin);
 		ArrayList<File> files = new ArrayList<File>();
 		
 		
-		/*
+		
 		for(Image image : imgList)
 		{
 			files.add(new File(image.getSource()));
@@ -95,7 +95,7 @@ public class PanierServlet extends HttpServlet {
 			buffi.close();
 		}
 		out.close();
-		    */
+		*/
 	}
 	
 
@@ -104,6 +104,20 @@ public class PanierServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String action = request.getParameter("action");
+
+		if(action.equals("auPanier"))
+		{
+			String idImage = request.getParameter("idImg");
+			
+			session = request.getSession();
+			ArrayList<String> imagesId = (ArrayList<String>)session.getAttribute("panier");
+			session.setAttribute("listeImages", imagesId.add(idImage));
+			
+			response.sendRedirect("./accueil");
+		}
+		
 	}
 
 }

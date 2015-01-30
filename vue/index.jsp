@@ -50,12 +50,18 @@
 	</header>
 	
 	<h2>Page d'accueil</h2>
+	<%
+	if(u != null)
+	{
+	%>
 	<p>Pour déposer une image:</p>
 	<form method="POST" action="accueil">
 		<input type="hidden" name="action" value="upload"/>
 		<input type="submit" name="boutonUpload" value="Déposer une image"/>
 	</form><br/>
-	
+	<%
+	}
+	%>
 	<p>Pour afficher toutes les images:</p>
 	<form method="POST" action="accueil">
 		<input type="hidden" name="action" value="tout"/>

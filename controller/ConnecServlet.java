@@ -19,16 +19,14 @@ import ejb.FacadeImage;
 /**
  * Servlet implementation class JeeServlet
  */
-@WebServlet({"/JeeServlet", "/accueil"})
-public class JeeServlet extends HttpServlet {
+@WebServlet({"/ConnecServlet", "/connexion"})
+public class ConnecServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// ici vous utilisez évidemment votre outil de persistance
 	// ces deux attributs sont mes EJB à moi qui gère ma persistance JPA
 	@EJB
-	private FacadeCategorie facadeCategorie;
-	@EJB
-	private FacadeImage facadeImage;
+	private FacadeCategorie facadeUtilisateur;
 
 	/**
 	 * Réponse aux requêtes de type GET
@@ -39,15 +37,9 @@ public class JeeServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		if(action.equals("upload"))
+		if(action.equals("connexion"))
 		{
-			request.setAttribute("ListeCategorie", facadeCategorie.findAll());
-			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
-		}
-		else if (action.equals("tout")) 
-		{
-			request.setAttribute("toutesImages", facadeImage.findAll());
-			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
+
 		}
 	}
 
@@ -60,15 +52,9 @@ public class JeeServlet extends HttpServlet {
 
 		String action = request.getParameter("action");
 
-		if(action.equals("upload"))
+		if(action.equals("connexion"))
 		{
-			request.setAttribute("ListeCategorie", facadeCategorie.findAll());
-			this.getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
-		}
-		else if (action.equals("tout")) 
-		{
-			request.setAttribute("toutesImages", facadeImage.findAll());
-			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
+
 		}
 	}
 }

@@ -18,25 +18,16 @@ import="ejb.*"
        <form action="UploadServlet" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Envoi de fichier</legend>
-                <select>
-                <% 
-                List<Categorie> listeCategorie = (List<Categorie>)request.getAttribute("ListeCategorie");
-                for(Categorie categorie : listeCategorie)
-                {
-                
-                	out.print("<option value=\""+Integer.toString(categorie.getId())+"\">"+categorie.getNom()+"</option>");
-                
-                }
-                %>
-                
-                 
-                
+                <select name="categorie">
+                	<c:forEach var="categorie" items="${ListeCategorie}">
+                		<option value =\"<c:out value="${categorie.id}"/>\"><c:out value="${categorie.nom}"/></option>
+                	</c:forEach>
                 </select>
                 <br/>
                 
-                <label for="description">Description du fichier</label>
-                <input type="text" id="description" name="description" value="" />
-                <span class="succes"><c:out value="${description}" /></span>
+                <label for="description">Nom du fichier</label>
+                <input type="text" id="description" name="nom" value="" />
+                <span class="succes"><c:out value="${nom}" /></span>
                 <br />
                 <label for="fichier">Emplacement du fichier <span class="requis"></span></label>
                 <input type="file" id="fichier" name="fichier" />

@@ -36,8 +36,9 @@ public class UploadServlet extends HttpServlet {
 	private FacadeUtilisateur facadeUtilisateur;
 	
 	public static final String VUE = "/upload.jsp";
-	public static final String CHAMP_DESCRIPTION = "description";
+	public static final String CHAMP_NOM = "nom";
 	public static final String CHAMP_FICHIER = "fichier";
+	public static final String CHAMP_CATEGORIE = "categorie";
 	public static final String CHEMIN = "chemin";
 	public static final int TAILLE_TAMPON = 10240; // 10 ko
 	
@@ -54,11 +55,17 @@ public class UploadServlet extends HttpServlet {
 		
 		
 	    String chemin = this.getServletConfig().getInitParameter( CHEMIN );
-	    System.out.println("chemin1 : "+ chemin);
 
-	    /* Récupération du contenu du champ de description */
-	    String description = request.getParameter( CHAMP_DESCRIPTION );
-	    request.setAttribute( CHAMP_DESCRIPTION, description );
+	    /* Récupération du contenu du champ nom */
+	    String nomImage = request.getParameter( CHAMP_NOM );
+	    request.setAttribute( CHAMP_NOM, nomImage );
+	    
+	    String categorieId = request.getParameter(CHAMP_CATEGORIE);
+	    categorieId = categorieId.replaceAll("\\\\", "");
+	    categorieId = categorieId.replaceAll("\"", "");
+	    
+	    request.setAttribute(CHAMP_CATEGORIE, categorieId);
+	    
 
 	    /*
 	     * Les données reçues sont multipart, on doit donc utiliser la méthode
@@ -93,7 +100,7 @@ public class UploadServlet extends HttpServlet {
 	         nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
 	         nomFichier = nomFichier.replace("\"", "");
 	        /* Écriture du fichier sur le disque */
-	        ecrireFichier( part, nomFichier, chemin );
+	        ecrireFichier( part, nomFichier,nomImage,categorieId, chemin );
 
 	        request.setAttribute( nomChamp, nomFichier );
 
@@ -130,7 +137,7 @@ public class UploadServlet extends HttpServlet {
 
 	 */
 
-	private void ecrireFichier( Part part, String nomFichier, String chemin ) throws IOException {
+	private void ecrireFichier( Part part, String nomFichier,String nomImage, String categorieId, String chemin ) throws IOException {
 
 	    /* Prépare les flux. */
 	    BufferedInputStream entree = null;
@@ -143,12 +150,12 @@ public class UploadServlet extends HttpServlet {
 	        sortie = new BufferedOutputStream( new FileOutputStream( new File( chemin + nomFichier)),TAILLE_TAMPON );
 	        
 	        Image image = new Image();
-	        image.setNom("teste");
-	        image.setSource("C:/Images/DCC_TP6.jpg");
+	        image.setNom(nomImage);
+	        image.setSource(chemin+nomFichier);
 	        
 	        Utilisateur utilisateur = (Utilisateur)facadeUtilisateur.find(1);
 	        image.setUtilisateur(utilisateur);
-	        Categorie categorie = (Categorie) facadeCategorie.find(1);
+	        Categorie categorie = (Categorie) facadeCategorie.find(Integer.parseInt(categorieId));
 	        image.setCategorie(categorie);
 	        facadeImage.create(image);
 	        

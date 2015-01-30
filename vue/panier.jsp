@@ -24,16 +24,17 @@
 				out.print("<li><img src=\"" + img.getSource() + "\" alt=\"" + img.getNom() + "\"></li>");
 			}
 			out.print("</ul>");
+			%>
+				<form method="POST" action="Download">
+					<input type="hidden" name="action" value="download"/>
+					<input type="submit" name="boutonDownload" value="Télécharger les images du panier"/>
+				</form>
+			<%
 		}
 		else 
 		{
 			out.print("<p>Il n'existe aucune image.</p>");
 		}
 	%>
-	
-	<form method="POST" action="Download">
-					<input type="hidden" name="action" value="download"/>
-					<input type="submit" name="telechargerPanier" value="Télécharger panier"/>
-	</form>
 </body>
 </html>

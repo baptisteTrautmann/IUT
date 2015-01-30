@@ -50,8 +50,14 @@ public class PanierServlet extends HttpServlet {
 		
 		session = request.getSession();
 		ArrayList<String> imagesId = (ArrayList<String>)session.getAttribute("panier");
+		ArrayList<Image> listeImages = new ArrayList<Image>();
 		
-		List<Image> listeImages = facadeImage.getImagesById(imagesId);
+		for(String id : imagesId)
+		{
+			listeImages.add((Image)facadeImage.find((Integer.parseInt(id))));
+		}
+		
+				
 		request.setAttribute("listeImages", listeImages);
 		
 		this.getServletContext().getRequestDispatcher("/panier.jsp").forward(request, response);
@@ -110,12 +116,17 @@ public class PanierServlet extends HttpServlet {
 		if(action.equals("auPanier"))
 		{
 			String idImage = request.getParameter("idImg");
-			
+						
 			session = request.getSession();
 			ArrayList<String> imagesId = (ArrayList<String>)session.getAttribute("panier");
 			session.setAttribute("listeImages", imagesId.add(idImage));
 			
 			response.sendRedirect("./accueil");
+		}
+		else if(action.equals("panier"))
+		{
+			//this.getServletContext().getRequestDispatcher("/panier.jsp").forward(request, response);
+			response.sendRedirect("./Panier");
 		}
 		
 	}

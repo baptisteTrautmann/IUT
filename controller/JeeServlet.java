@@ -55,6 +55,8 @@ public class JeeServlet extends HttpServlet {
 	{
 		response.setContentType("text/html");
 
+		session = request.getSession();
+		Utilisateur u = (Utilisateur) session.getAttribute("utilisateur");
 		String action = request.getParameter("action");
 
 		if(action.equals("upload"))
@@ -65,6 +67,7 @@ public class JeeServlet extends HttpServlet {
 		else if (action.equals("tout")) 
 		{
 			request.setAttribute("toutesImages", facadeImage.findAll());
+			request.setAttribute("utilisateur", u);
 			this.getServletContext().getRequestDispatcher("/afficheToutesImages.jsp").forward(request, response);
 		}
 	}

@@ -28,7 +28,12 @@
 				<form method="POST" action="connexion">
 					<input type="hidden" name="action" value="deconnexion"/>
 					<input type="submit" name="boutonDeco" value="Se déconnecter"/>
-				</form><br/>
+				</form>
+				<form method="POST" action="Panier">
+					<input type="hidden" name="action" value="panier"/>
+					<input type="submit" name="boutonPanier" value="Mon panier"/>
+				</form>
+				<br/>
 				<%
 			}
 			else

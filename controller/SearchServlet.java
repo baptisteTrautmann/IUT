@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Categorie;
 import model.Image;
+import model.Utilisateur;
 import ejb.FacadeCategorie;
 import ejb.FacadeImage;
 
@@ -29,6 +31,8 @@ public class SearchServlet extends HttpServlet {
 	private FacadeCategorie facadeCategorie;
 	@EJB
 	private FacadeImage facadeImage;
+	
+	private HttpSession session;
 
 	/**
 	 * Réponse aux requêtes de type GET
@@ -58,16 +62,20 @@ public class SearchServlet extends HttpServlet {
 	{
 		response.setContentType("text/html");
 
+		session = request.getSession();
+		Utilisateur u = (Utilisateur) session.getAttribute("utilisateur");
 		String type = request.getParameter("type");
 
 		if(type.equals("image"))
 		{
 			request.setAttribute("resRecherche", facadeImage.getImgLike(request.getParameter("recherche")));
+			request.setAttribute("utilisateur", u);
 			this.getServletContext().getRequestDispatcher("/resultatRecherche.jsp").forward(request, response);
 		}
 		else if (type.equals("categorie")) 
 		{
 			request.setAttribute("resRecherche", facadeImage.getImgByCat(request.getParameter("recherche")));
+			request.setAttribute("utilisateur", u);
 			this.getServletContext().getRequestDispatcher("/resultatRecherche.jsp").forward(request, response);
 		}
 	}

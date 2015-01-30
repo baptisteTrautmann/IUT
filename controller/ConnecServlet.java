@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -67,6 +68,7 @@ public class ConnecServlet extends HttpServlet {
 			if(u != null && pass.equals(u.getPassword()))
 			{
 				session.setAttribute("utilisateur", u);
+				session.setAttribute("panier", new ArrayList<String>());
 			}
 			else
 			{

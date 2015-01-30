@@ -15,13 +15,19 @@
 	<h3>Résultat de la recherche:</h3>
 	<%
 		List<Image> imgList = (List<Image>)request.getAttribute("resRecherche");
-
+		Utilisateur u = (Utilisateur)request.getAttribute("utilisateur");
+	
 		if (!imgList.isEmpty())
 		{
 			out.print("<ul>");
 			for(Image img : imgList)
 			{
 				out.print("<li><img src=\"" + img.getSource() + "\" alt=\"" + img.getNom() + "\"</li>");
+				
+				if(u != null)
+				{
+					out.print("<form method='POST' action='Panier'><input type='hidden' name='action' value='auPanier'/><input type='hidden' name='idImg' value='" + img.getId() + "'/><input type='submit' name='boutonPanier' value='Ajouter au panier'/></form><br/>");
+				}
 			}
 			out.print("</ul>");
 		}

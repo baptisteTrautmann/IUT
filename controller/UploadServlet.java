@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import ejb.FacadeCategorie;
@@ -35,6 +36,8 @@ public class UploadServlet extends HttpServlet {
 	@EJB
 	private FacadeUtilisateur facadeUtilisateur;
 	
+	private HttpSession session;
+	
 	public static final String VUE = "/upload.jsp";
 	public static final String CHAMP_NOM = "nom";
 	public static final String CHAMP_FICHIER = "fichier";
@@ -53,6 +56,8 @@ public class UploadServlet extends HttpServlet {
 	     * Lecture du paramètre 'chemin' passé à la servlet via la déclaration dans le web.xml
 	     */
 		
+		session = request.getSession();
+		Utilisateur u = (Utilisateur) session.getAttribute("utilisateur");
 		
 	    String chemin = this.getServletConfig().getInitParameter( CHEMIN );
 
@@ -100,7 +105,7 @@ public class UploadServlet extends HttpServlet {
 	         nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
 	         nomFichier = nomFichier.replace("\"", "");
 	        /* Écriture du fichier sur le disque */
-	        ecrireFichier( part, nomFichier,nomImage,categorieId, chemin );
+	        ecrireFichier( part, nomFichier,nomImage,categorieId,u, chemin );
 
 	        request.setAttribute( nomChamp, nomFichier );
 
@@ -137,7 +142,7 @@ public class UploadServlet extends HttpServlet {
 
 	 */
 
-	private void ecrireFichier( Part part, String nomFichier,String nomImage, String categorieId, String chemin ) throws IOException {
+	private void ecrireFichier( Part part, String nomFichier,String nomImage, String categorieId,Utilisateur u, String chemin ) throws IOException {
 
 	    /* Prépare les flux. */
 	    BufferedInputStream entree = null;
@@ -153,8 +158,7 @@ public class UploadServlet extends HttpServlet {
 	        image.setNom(nomImage);
 	        image.setSource(chemin+nomFichier);
 	        
-	        Utilisateur utilisateur = (Utilisateur)facadeUtilisateur.find(1);
-	        image.setUtilisateur(utilisateur);
+	        image.setUtilisateur(u);
 	        Categorie categorie = (Categorie) facadeCategorie.find(Integer.parseInt(categorieId));
 	        image.setCategorie(categorie);
 	        facadeImage.create(image);

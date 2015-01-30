@@ -19,6 +19,21 @@ public class FacadeImage extends FacadeAbstraite {
 	protected EntityManager getEntityManager() {
 		return em;
 	}
+	
+	public List<Image> getImagesById(List<String> listId)
+	{
+		TypedQuery<Image> query = em.createQuery("SELECT i FROM Image i WHERE i.id IN (:images)", Image.class);
+		String param = "";
+		for(String id : listId){
+			if(param!="") {
+			param+=","+id;
+			} else {
+				param+=id;
+			}
+		}
+		query.setParameter("images",param);
+		return query.getResultList();
+	}
 
 	public FacadeImage() {
 		super(Image.class);

@@ -11,14 +11,19 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import ejb.FacadeCategorie;
+import ejb.FacadeImage;
 import model.Image;
+import model.Utilisateur;
 
 /**
  * Servlet implementation class PanierServlet
@@ -29,6 +34,13 @@ public class PanierServlet extends HttpServlet {
 	
 	public static final String CHEMIN = "chemin";
 	public static final int BUFFER = 2048;
+	
+	@EJB
+	private FacadeCategorie facadeCategorie;
+	@EJB
+	private FacadeImage facadeImage;
+	
+	private HttpSession session;
        
     /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,15 +48,26 @@ public class PanierServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		session = request.getSession();
+		ArrayList<String> imagesId = (ArrayList<String>)session.getAttribute("panier");
+		
+		List<Image> listeImages = facadeImage.getImagesById(imagesId);
+		request.setAttribute("listeImages", listeImages);
+		
+		this.getServletContext().getRequestDispatcher("/panier.jsp").forward(request, response);
+		
+		
+		
+		
 		String chemin = this.getServletConfig().getInitParameter( CHEMIN );
 		
-		List<Image> imgList = (List<Image>)request.getAttribute("panierImages");
 		
+				
 		File repertoire = new File(chemin);
 		ArrayList<File> files = new ArrayList<File>();
 		
 		
-		
+		/*
 		for(Image image : imgList)
 		{
 			files.add(new File(image.getSource()));
@@ -72,7 +95,7 @@ public class PanierServlet extends HttpServlet {
 			buffi.close();
 		}
 		out.close();
-		    
+		    */
 	}
 	
 

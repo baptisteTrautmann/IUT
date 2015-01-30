@@ -52,6 +52,9 @@ public class PanierServlet extends HttpServlet {
 		ArrayList<String> imagesId = (ArrayList<String>)session.getAttribute("panier");
 		ArrayList<Image> listeImages = new ArrayList<Image>();
 		
+		if(imagesId !=null)
+		{
+			
 		for(String id : imagesId)
 		{
 			listeImages.add((Image)facadeImage.find((Integer.parseInt(id))));
@@ -62,46 +65,8 @@ public class PanierServlet extends HttpServlet {
 		
 		this.getServletContext().getRequestDispatcher("/panier.jsp").forward(request, response);
 		
-		
-		
-		
-		String chemin = this.getServletConfig().getInitParameter( CHEMIN );
-		
-		
-		/*		
-		File repertoire = new File(chemin);
-		ArrayList<File> files = new ArrayList<File>();
-		
-		
-		
-		for(Image image : imgList)
-		{
-			files.add(new File(image.getSource()));
+		//String chemin = this.getServletConfig().getInitParameter( CHEMIN );
 		}
-		
-		
-		byte data[] = new byte[BUFFER];
-		FileOutputStream dest= new FileOutputStream("archive.zip");
-		BufferedOutputStream buff = new BufferedOutputStream(dest);
-		ZipOutputStream out = new ZipOutputStream(buff);
-		out.setMethod(ZipOutputStream.DEFLATED);
-		out.setLevel(9);
-		
-		for(int i=0; i<files.size(); i++) {
-		    FileInputStream fi = new FileInputStream(files.get(i));
-		    BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
-		    ZipEntry entry= new ZipEntry(files.get(i).getName());
-		    out.putNextEntry(entry);
-		    
-		    int count;
-			while((count = buffi.read(data, 0, BUFFER)) != -1) {
-		        out.write(data, 0, count);
-		    }
-			out.closeEntry();
-			buffi.close();
-		}
-		out.close();
-		*/
 	}
 	
 

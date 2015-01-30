@@ -48,7 +48,8 @@ public class UploadServlet extends HttpServlet {
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		/* Affichage de la page d'envoi de fichiers */
 		
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		//this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		response.sendRedirect("./accueil");
 	}
 
 	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -111,7 +112,8 @@ public class UploadServlet extends HttpServlet {
 
 	    }
 
-	    this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+	    //this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+	    response.sendRedirect("./accueil");
 
 	}
 		

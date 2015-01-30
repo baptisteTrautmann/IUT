@@ -16,7 +16,7 @@
 	<%
 		List<Image> imgList = (List<Image>)request.getAttribute("listeImages");
 
-		if (imgList != null)
+		if (!imgList.isEmpty())
 		{
 			out.print("<ul>");
 			for(Image img : imgList)
@@ -25,15 +25,15 @@
 			}
 			out.print("</ul>");
 			%>
-				<form method="POST" action="Download">
-					<input type="hidden" name="action" value="download"/>
+				<form method="GET" action="Download">
+					<!-- <input type="hidden" name="action" value="download"/> -->
 					<input type="submit" name="boutonDownload" value="Télécharger les images du panier"/>
 				</form>
 			<%
 		}
 		else 
 		{
-			out.print("<p>Il n'existe aucune image.</p>");
+			out.print("<p>Panier vide .</p>");
 		}
 	%>
 </body>

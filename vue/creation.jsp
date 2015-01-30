@@ -14,7 +14,7 @@
 <body>
 	<h3>Création de compte:</h3>
 	<%
-	String erreur = (String)request.getAttribute("erreur");
+			String erreur = (String)request.getAttribute("erreur");
 			if(erreur != null && erreur != "")
 			{
 				out.print(erreur);

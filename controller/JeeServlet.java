@@ -42,6 +42,9 @@ public class JeeServlet extends HttpServlet {
 		session = request.getSession();
 		Utilisateur u = (Utilisateur) session.getAttribute("utilisateur");
 		request.setAttribute("utilisateur", u);
+		String erreur = (String) session.getAttribute("erreur");
+		request.setAttribute("erreur", erreur);
+		session.setAttribute("erreur", null);
 		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

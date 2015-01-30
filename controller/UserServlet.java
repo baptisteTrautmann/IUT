@@ -79,6 +79,7 @@ public class UserServlet extends HttpServlet {
 			else
 			{
 				facadeUtilisateur.create(u);
+				session.setAttribute("erreur", "Le compte a été créé!");
 				response.sendRedirect("./accueil");
 			}
 		}
